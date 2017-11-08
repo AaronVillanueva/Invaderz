@@ -3,12 +3,20 @@
 
 import pygame
 
+def musica(pista):
+    if pista==1:
+        pygame.mixer.music.load("1.ogg")
+    else:
+        pygame.mixer.music.load("2.ogg")
+    pygame.mixer.music.play()
+    pygame.mixer.music.set_volume(1)
 
 ANCHO = 800
 ALTO = 600
 
 fondo=(0,0,0)
 principal=(255,255,255)
+
 def dibujar():
     menuPrincipal=True
     jugando=False
@@ -25,11 +33,50 @@ def dibujar():
         
         ventana.fill(fondo)
         
+        if evento.type==pygame.KEYDOWN:
+            if evento.key==pygame.K_DOWN:
+                seleccion+=20
+                movimiento=True
+            if evento.key==pygame.K_UP
+                seleccion-=20
+                movimiento=True
+            if evento.key==pygame.K_LEFT:
+                posicion-=20
+                movimiento=True
+            if evento.key==pygame.K_RIGHT:
+                posicion+=20
+                movimiento=True
+            if evento.key==pygame.K_SPACE:
+                disparar=True
+            if evento.type==pygameKEYUP:
+                movimiento=False
+                disparar=False
+        
+        posicion, seleccion=pygame.mouse.get_pos()
+        if posicion>=anchoVentana:
+            posicion=anchoVentana
+        elif posicion<=0:
+            posicion=0
+        if seleccion>= altoVentana-areaJuego:
+           seleccion=altoVentana-areaJuego
+        elif seleccion<=0:
+           seleccion=0
+                
+                
         if menuPrincipal==True:
-            pygame.draw.rect(ventana, principal, (30, 30, ANCHO-60, ALTO-60), 5)
+            ventana.fill(fondo)
+            textoInicio = fuente.render("Empezar", 0, principal)
+            posicionInicio = textoInicio.get_rect(center=(anchoVentana // 2, altoVentana // 2))
+            ventana.blit(textoInicio, posicionInicio)
+
             
-            menuPrincipal=False
-            jugando=True
+            for event in pygame.event.get():
+                if event.type==pygame.mouse.get_pressed():
+                    xMouse,yMouse,nada=pygame.mouse.get_pressed()
+                    if xMouse==True :
+                        menuPrincipal=False
+                        jugando=True
+                        ventana.fill(fondo)
         
         if jugando==True:
         
