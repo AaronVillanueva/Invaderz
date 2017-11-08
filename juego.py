@@ -11,8 +11,8 @@ def musica(pista):
     pygame.mixer.music.play()
     pygame.mixer.music.set_volume(1)
 
-ANCHO = 800
-ALTO = 600
+anchoVentana = 800
+altoVentana = 600
 
 fondo=(0,0,0)
 principal=(255,255,255)
@@ -26,7 +26,6 @@ def dibujar():
     termina = False # Bandera para saber si termina la ejecución
 
     while not termina:
-        # Procesa los eventos que recibe
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:  # El usuario hizo click en el botón de salir
                 termina = True
@@ -51,7 +50,7 @@ def dibujar():
             if evento.type==pygameKEYUP:
                 movimiento=False
                 disparar=False
-        
+                
         posicion, seleccion=pygame.mouse.get_pos()
         if posicion>=anchoVentana:
             posicion=anchoVentana
@@ -68,21 +67,13 @@ def dibujar():
             textoInicio = fuente.render("Empezar", 0, principal)
             posicionInicio = textoInicio.get_rect(center=(anchoVentana // 2, altoVentana // 2))
             ventana.blit(textoInicio, posicionInicio)
+            if posicion==400:
+                jugando=True
+                menuPrincipal=False
 
-            
-            for event in pygame.event.get():
-                if event.type==pygame.mouse.get_pressed():
-                    xMouse,yMouse,nada=pygame.mouse.get_pressed()
-                    if xMouse==True :
-                        menuPrincipal=False
-                        jugando=True
-                        ventana.fill(fondo)
         
         if jugando==True:
-        
-
-        # Dibujar, aquí haces todos los trazos que requieras
-        pygame.draw.circle(ventana, principal, (ANCHO//2, ALTO//2), 200, 2)
+            pygame.draw.circle(ventana, principal, (anchoVentana//2, altoVentana//2), 200, 2)
 
         pygame.display.flip()   # Actualiza trazos
         reloj.tick(40)          # 40 fps
