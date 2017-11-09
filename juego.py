@@ -24,6 +24,11 @@ def dibujar():
     ventana = pygame.display.set_mode((ANCHO, ALTO))    # Crea la ventana de dibujo
     reloj = pygame.time.Clock() # Para limitar los fps
     termina = False # Bandera para saber si termina la ejecución
+    
+    estado = "menu"  # jugando, termina
+    imgBotonJugar =pygame.image.load("botonJugar")
+    btnJugar=pygame.sprite.Sprite()
+    btnJugar.image=imgBotonJugar
 
     while not termina:
         for evento in pygame.event.get():
@@ -62,8 +67,8 @@ def dibujar():
            seleccion=0
                 
                 
-        if menuPrincipal==True:
-            ventana.fill(fondo)
+        if estado=="menu":
+            #ventana.fill(fondo)
             textoInicio = fuente.render("Empezar", 0, principal)
             posicionInicio = textoInicio.get_rect(center=(anchoVentana // 2, altoVentana // 2))
             ventana.blit(textoInicio, posicionInicio)
@@ -72,7 +77,7 @@ def dibujar():
                 menuPrincipal=False
 
         
-        if jugando==True:
+        elif estado=="jugando":
             pygame.draw.circle(ventana, principal, (anchoVentana//2, altoVentana//2), 200, 2)
 
         pygame.display.flip()   # Actualiza trazos
