@@ -3,10 +3,9 @@
 
 import pygame
 
-# Dimensiones de la pantalla
 ANCHO = 800
 ALTO = 800
-# Colores
+
 BLANCO = (255,255,255)  # R,G,B en el rango [0,255]
 VERDE_BANDERA = (0, 122, 0)
 ROJO = (255, 0, 0)
@@ -58,11 +57,10 @@ def generarEnemigos(listaEnemigos,imgBotonJugar):
 
 
 def dibujar():
-    # Ejemplo del uso de pygame
-    pygame.init()   # Inicializa pygame
-    ventana = pygame.display.set_mode((ANCHO, ALTO))    # Crea la ventana de dibujo
-    reloj = pygame.time.Clock() # Para limitar los fps
-    termina = False # Bandera para saber si termina la ejecución
+    pygame.init()
+    ventana = pygame.display.set_mode((ANCHO, ALTO))
+    reloj = pygame.time.Clock()
+    termina = False
 
     estado = "menu"  # jugando, termina
     imgBotonJugar =pygame.image.load("botonJugar.png")
@@ -80,9 +78,8 @@ def dibujar():
     fps=30
 
     while not termina:
-        # Procesa los eventos que recibe
         for evento in pygame.event.get():
-            if evento.type == pygame.QUIT:  # El usuario hizo click en el botón de salir
+            if evento.type == pygame.QUIT:
                 termina = True
 
             elif evento.type==pygame.MOUSEBUTTONDOWN:
@@ -107,13 +104,9 @@ def dibujar():
                     bala.rect.top=ALTO-bala.rect.height
                     listaBalas.append(bala)
 
-
-
-        # Borrar pantalla
         ventana.fill(BLANCO)
         timer+=1/fps
 
-        # Dibujar, aquí haces todos los trazos que requieras
         if estado=="menu":
             dibujarMenu(ventana, btnJugar)
         elif estado=="jugando":
@@ -122,12 +115,10 @@ def dibujar():
         pygame.draw.rect(ventana, VERDE_BANDERA, (30, 30, ANCHO-60, ALTO-60), 5)
         pygame.draw.circle(ventana, ROJO, (ANCHO//2, ALTO//2), 200, 2)
 
-
-        pygame.display.flip()   # Actualiza trazos
+        pygame.display.flip()
         reloj.tick(fps)
 
-    pygame.quit()   # termina pygame
-
+    pygame.quit()
 
 def main():
     dibujar()
